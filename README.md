@@ -1,0 +1,1 @@
+None of code snippets are production ready code.
