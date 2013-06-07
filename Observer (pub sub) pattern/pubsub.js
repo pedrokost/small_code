@@ -15,6 +15,10 @@ var pubsub =  (function () {
     var i,
       len;
 
+    if (!subscribers[topic]) {
+      return
+    }
+
     if (!topics[topic]) {
       topics[topic] = {
         "owner": owner,
@@ -24,10 +28,6 @@ var pubsub =  (function () {
       topics[topic].data = data;
     } else {
       console.log('This topic is already taken');
-    }
-
-    if (!subscribers[topic]) {
-      subscribers[topic] = [];
     }
 
     for (i = 0, len = subscribers[topic].length; i < len; i += 1) {
@@ -85,8 +85,8 @@ pubsub.subscribe(s2, '/map', function(data) {
 
 var p1 = {};
 pubsub.publish(p1, '/map', "some data");
-// => s1 was notified.
-// => s2 was notified.
+// => s1 was notified with some data.
+// => s2 was notified with some data.
 
 pubsub.unsubscribe(s2, '/map');
 
